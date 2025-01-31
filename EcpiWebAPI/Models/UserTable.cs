@@ -1,13 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class UserTable
+namespace YourNamespace.Models  // 🔹 Match this with ApplicationDbContext.cs
 {
-    [Key]
-    public int Id { get; set; }
+    [Table("UserTable")]
+    public class UserTable
+    {
+     //   [Key]
+     //   public int Id { get; set; }
 
-    [Required]
-    public string UserName { get; set; }
+        [Key]
+        public string UserName { get; set; }
 
-    [Required]
-    public string Password { get; set; }
+        [Required]
+        public string Password { get; set; }
+    }
 }

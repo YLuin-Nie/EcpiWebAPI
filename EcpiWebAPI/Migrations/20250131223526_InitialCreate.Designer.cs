@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcpiWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250131212306_InitialCreate")]
+    [Migration("20250131223526_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -23,25 +23,18 @@ namespace EcpiWebAPI.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("UserTable", b =>
+            modelBuilder.Entity("YourNamespace.Models.UserTable", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.HasKey("UserName");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
+                    b.ToTable("UserTable", (string)null);
                 });
 #pragma warning restore 612, 618
         }
