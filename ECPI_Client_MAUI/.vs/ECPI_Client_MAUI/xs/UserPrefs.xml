@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{3254EFAD-AC7C-4738-BEDE-1E9434599D89}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Platforms/MacCatalyst/Program.cs">
+    <Files>
+      <File FileName="ECPI_Client_MAUI.csproj" />
+      <File FileName="Platforms/MacCatalyst/Program.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Option id="ShowAllFiles" value="True" />
+          <Node name="ECPI_Client_MAUI" expanded="True">
+            <Node name="Platforms" expanded="True">
+              <Node name="MacCatalyst" expanded="True" />
+            </Node>
+            <Node name="Properties" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.ECPI__Client__MAUI PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+</Properties>
