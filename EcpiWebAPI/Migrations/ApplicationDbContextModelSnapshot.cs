@@ -25,7 +25,7 @@ namespace EcpiWebAPI.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("longtext");
 
