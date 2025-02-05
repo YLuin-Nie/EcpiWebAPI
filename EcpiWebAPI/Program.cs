@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using YourNamespace.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+// 🔹 Register Background Service
+builder.Services.AddHostedService<AutoLoginService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
