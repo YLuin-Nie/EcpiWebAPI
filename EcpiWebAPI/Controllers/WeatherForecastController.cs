@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using EcpiWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,6 +6,7 @@ namespace EcpiWebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize] // 🔒 Requires authentication for all actions[Authorize] // 🔒 Requires authentication for all actions
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

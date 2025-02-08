@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using YourNamespace.Models;  // 🔹 Replace 'YourNamespace' with your actual project namespace
+using YourNamespace.Models;  
 using BCrypt.Net;
 
 public class AutoLoginService : BackgroundService

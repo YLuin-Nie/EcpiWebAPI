@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using YourNamespace.Models;
 
@@ -13,22 +14,8 @@ public class UserController : ControllerBase
         _context = context;
     }
 
-    // 🔹 Create a new user with hashed password
-    [HttpPost("create")]
-    public IActionResult CreateUser([FromBody] UserTable user)
-    {
-        if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PasswordHash))
-            return BadRequest("Username and password are required.");
-
-        // 🔹 Hash the password before saving
-        user.PasswordHash = PasswordHasher.HashPassword(user.PasswordHash);
-
-        _context.Users.Add(user);
-        _context.SaveChanges();
-        return Ok(new { message = "User created successfully" });
-    }
-
-    // 🔹 Verify user login
+    // 🔹 Public access for login (No authentication required)
+    [AllowAnonymous]
     [HttpPost("login")]
     public IActionResult Login([FromBody] UserTable user)
     {
@@ -36,10 +23,24 @@ public class UserController : ControllerBase
         if (existingUser == null)
             return Unauthorized("Invalid username or password.");
 
-        // 🔹 Verify password
         if (!PasswordHasher.VerifyPassword(user.PasswordHash, existingUser.PasswordHash))
             return Unauthorized("Invalid username or password.");
 
         return Ok(new { message = "Login successful!" });
+    }
+
+    // 🔒 Secure the user creation endpoint (Authentication required)
+    [Authorize]
+    [HttpPost("create")]
+    public IActionResult CreateUser([FromBody] UserTable user)
+    {
+        if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PasswordHash))
+            return BadRequest("Username and password are required.");
+
+        user.PasswordHash = PasswordHasher.HashPassword(user.PasswordHash);
+
+        _context.Users.Add(user);
+        _context.SaveChanges();
+        return Ok(new { message = "User created successfully" });
     }
 }
