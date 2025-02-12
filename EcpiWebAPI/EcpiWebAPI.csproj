@@ -27,9 +27,11 @@
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="Utils\" />
+    <None Remove="Attribute\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Utils\" />
+    <Folder Include="Attribute\" />
   </ItemGroup>
 </Project>

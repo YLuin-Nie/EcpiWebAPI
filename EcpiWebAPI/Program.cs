@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using YourNamespace.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using YourNamespace.Services;
+using YourNamespace.Attributes;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +38,12 @@ builder.Services.AddHostedService<AutoLoginService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// Register UserService for dependency injection
+builder.Services.AddScoped<UserService>();
+
+// Register custom attribute for dependency injection
+//builder.Services.AddSingleton<RestrictToUsersAttribute>();
 
 // 🔹 Add CORS policy to allow requests from your MAUI app
 builder.Services.AddCors(options =>
