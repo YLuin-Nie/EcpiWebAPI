@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using YourNamespace.Models;  // 🔹 Add this to ensure UserTable is recognized
+using EcpiWebAPI.Models;  // 🔹 Add this to ensure UserTable is recognized
 
 public class ApplicationDbContext : DbContext
 {

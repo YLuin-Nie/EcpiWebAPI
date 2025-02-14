@@ -5,9 +5,9 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration; // Add this
-using YourNamespace.Models;
+using EcpiWebAPI.Models;
 
-namespace YourNamespace.Services
+namespace EcpiWebAPI.Services
 {
     public class UserService
     {

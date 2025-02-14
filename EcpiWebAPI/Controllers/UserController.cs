@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YourNamespace.Models;
-using YourNamespace.Services;
-using YourNamespace.Attributes;
+using EcpiWebAPI.Models;
+using EcpiWebAPI.Services;
+using EcpiWebAPI.Attributes;
 
 [Route("api/[controller]")]
 [ApiController]

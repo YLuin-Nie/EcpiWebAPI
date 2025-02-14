@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using YourNamespace.Models;
+using EcpiWebAPI.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using YourNamespace.Services;
-using YourNamespace.Attributes;
+using EcpiWebAPI.Services;
+using EcpiWebAPI.Attributes;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +38,7 @@ builder.Services.AddHostedService<AutoLoginService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddSignalR(); // Add SignalR
 
 // Register UserService for dependency injection
 builder.Services.AddScoped<UserService>();
@@ -73,5 +74,8 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Map SignalR Hub
+app.MapHub<ECPIHub>("/ecpihub");
 
 app.Run();

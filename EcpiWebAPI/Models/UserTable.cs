@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace YourNamespace.Models  // 🔹 Match this with ApplicationDbContext.cs
+namespace EcpiWebAPI.Models  // 🔹 Match this with ApplicationDbContext.cs
 {
     [Table("UserTable")]
     public class UserTable
