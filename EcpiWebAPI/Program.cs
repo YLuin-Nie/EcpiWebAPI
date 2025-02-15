@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using EcpiWebAPI.Services;
 using EcpiWebAPI.Attributes;
+using EcpiWebAPI.Hubs;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,10 +39,10 @@ builder.Services.AddHostedService<AutoLoginService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddSignalR(); // Add SignalR
 
 // Register UserService for dependency injection
 builder.Services.AddScoped<UserService>();
+builder.Services.AddSignalR(); // Add SignalR
 
 // Register custom attribute for dependency injection
 //builder.Services.AddSingleton<RestrictToUsersAttribute>();

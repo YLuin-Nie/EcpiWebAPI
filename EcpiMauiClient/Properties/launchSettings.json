@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EcpiMauiClient": {
+      "commandName": "Project",
+      "dotnetRunMessages": true
+    }
+  }
+}

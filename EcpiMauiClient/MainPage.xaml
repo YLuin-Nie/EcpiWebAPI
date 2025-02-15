@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcpiMauiClient.MainPage">
+    <VerticalStackLayout Padding="20">
+        <Entry x:Name="MessageEntry" Placeholder="Enter message" />
+        <Button Text="Send" Clicked="SendMessage"/>
+        <Label x:Name="StatusLabel" Text="Connecting to ECPIHub..." />
+        <CollectionView x:Name="MessagesList">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}" />
+            </CollectionView.ItemsSource>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
+

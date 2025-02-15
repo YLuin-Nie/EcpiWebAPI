@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
-public class ECPIHub : Hub
+namespace EcpiWebAPI.Hubs
 {
-    public async Task SendMessage(string user, string message)
+    public class ECPIHub : Hub
     {
-        await Clients.All.SendAsync("ReceiveMessage", user, message);
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
     }
 }

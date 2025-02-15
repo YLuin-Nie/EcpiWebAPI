@@ -4,8 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Configuration; // Add this
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.SignalR;
 using EcpiWebAPI.Models;
+using EcpiWebAPI.Hubs;
+using System.Threading.Tasks;
 
 namespace EcpiWebAPI.Services
 {
@@ -13,19 +16,20 @@ namespace EcpiWebAPI.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly string _jwtKey;
+        private readonly IHubContext<ECPIHub> _hubContext; // Inject SignalR Hub
 
-        // Inject IConfiguration to access appsettings.json
-        public UserService(ApplicationDbContext context, IConfiguration configuration)
+        public UserService(ApplicationDbContext context, IConfiguration configuration, IHubContext<ECPIHub> hubContext)
         {
             _context = context;
             _jwtKey = configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is not configured.");
+            _hubContext = hubContext;
         }
 
-        public string Login(UserTable user)
+        public async Task<string> Login(UserTable user) // 🔹 Ensure method is async Task<string>
         {
             var existingUser = _context.Users.FirstOrDefault(u => u.UserName == user.UserName);
             if (existingUser == null || !PasswordHasher.VerifyPassword(user.PasswordHash, existingUser.PasswordHash))
-                return string.Empty; // Return empty string for failed login
+                return string.Empty;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtKey);
@@ -38,14 +42,19 @@ namespace EcpiWebAPI.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var jwtToken = tokenHandler.WriteToken(token);
 
-            return tokenHandler.WriteToken(token);
-        }
+            // 🔹 Notify all clients that a new token has been created
+            Console.WriteLine($"📢 TokenCreated event sent for {user.UserName}: {jwtToken}");
+            await _hubContext.Clients.All.SendAsync("TokenCreated", user.UserName, jwtToken); // Ensure await is inside an async method
 
-        public bool CreateUser(UserTable user)
+            return jwtToken;
+        } // 🔹 Closing bracket correctly placed
+
+        public bool CreateUser(UserTable user) // 🔹 Now correctly outside the Login() method
         {
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PasswordHash))
-                return false; // Indicate failure
+                return false;
 
             user.PasswordHash = PasswordHasher.HashPassword(user.PasswordHash);
             _context.Users.Add(user);
