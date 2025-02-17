@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BobAlexis_MauiClient.MainPage">
+    <VerticalStackLayout Padding="20">
+        <!-- Connection Status -->
+        <Label x:Name="ConnectionStatusLabel" Text="Not Connected" 
+               FontSize="18" TextColor="Red" HorizontalOptions="Center"/>
+
+        <!-- Input Fields -->
+        <Entry x:Name="UserEntry" Placeholder="Enter your name"/>
+        <Entry x:Name="MessageEntry" Placeholder="Type a message"/>
+        <Button Text="Send Message" Clicked="SendMessage_Clicked"/>
+
+        <!-- Messages Display -->
+        <ScrollView HeightRequest="200">
+            <VerticalStackLayout x:Name="MessagesStack">
+                <!-- Messages will be dynamically added here -->
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>
+

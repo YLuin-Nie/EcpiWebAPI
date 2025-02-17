@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BobAlexis_MauiClient": {
+      "commandName": "Project",
+      "dotnetRunMessages": true
+    }
+  }
+}
