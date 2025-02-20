@@ -29,7 +29,7 @@ namespace EcpiWebAPI.Services
         {
             var existingUser = _context.Users.FirstOrDefault(u => u.UserName == user.UserName);
             if (existingUser == null || !PasswordHasher.VerifyPassword(user.PasswordHash, existingUser.PasswordHash))
-                return string.Empty;
+                return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtKey);
@@ -49,7 +49,7 @@ namespace EcpiWebAPI.Services
             await _hubContext.Clients.All.SendAsync("TokenCreated", user.UserName, jwtToken); // Ensure await is inside an async method
 
             return jwtToken;
-        } // 🔹 Closing bracket correctly placed
+        } 
 
         public bool CreateUser(UserTable user) // 🔹 Now correctly outside the Login() method
         {

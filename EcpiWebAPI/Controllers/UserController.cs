@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using EcpiWebAPI.Models;
 using EcpiWebAPI.Services;
 using EcpiWebAPI.Attributes;
+using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -17,10 +18,14 @@ public class UserController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public IActionResult Login([FromBody] UserTable user)
+    public async Task<IActionResult> Login([FromBody] UserTable user) // ✅ Correct return type
     {
-        var token = _userService.Login(user);
-        if (token == null)
+    //    Console.WriteLine($"📢 Received login attempt: {user.UserName}");
+    //    Console.WriteLine($"📢 Received password: {user.PasswordHash}");
+
+        var token = await _userService.Login(user);
+
+        if (string.IsNullOrEmpty(token)) // ✅ Use string.IsNullOrEmpty to check if token is valid
             return Unauthorized("Invalid username or password.");
 
         return Ok(new { token });
@@ -30,6 +35,9 @@ public class UserController : ControllerBase
     [HttpPost("create")]
     public IActionResult CreateUser([FromBody] UserTable user)
     {
+        Console.WriteLine($"📢 Received login attempt: {user.UserName}");
+        Console.WriteLine($"📢 Received password: {user.PasswordHash}"); // TEMPORARY for debugging
+
         if (!_userService.CreateUser(user))
             return BadRequest("Username and password are required.");
 

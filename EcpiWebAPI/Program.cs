@@ -7,7 +7,6 @@ using EcpiWebAPI.Services;
 using EcpiWebAPI.Attributes;
 using EcpiWebAPI.Hubs;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add JWT authentication
@@ -51,14 +50,19 @@ builder.Services.AddSignalR(); // Add SignalR
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
+        policy => policy.WithOrigins("http://localhost:5182")
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
+                        .AllowAnyHeader()
+                        .AllowCredentials());
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+Console.WriteLine($"🔑 JWT Key: {builder.Configuration["Jwt:Key"]}");
+Console.WriteLine($"🌍 Issuer: {builder.Configuration["Jwt:Issuer"]}");
+Console.WriteLine($"🎯 Audience: {builder.Configuration["Jwt:Audience"]}");
 
 var app = builder.Build();
 
